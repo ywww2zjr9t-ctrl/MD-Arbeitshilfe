@@ -188,7 +188,14 @@ function renderDkr(){
  let rows=[];
  const years=dkrAllYearsMode?["2026","2025","2024","2023","2022"]:[y];
  years.forEach(yr=>(window.DKR_DATA?.[yr]||[]).forEach(r=>rows.push({...r,year:yr})));
- if(q) rows=rows.filter(r=>smart(q,r.code+" "+r.title+" "+r.text));
+ if(q){
+   const cq=q.trim().toLowerCase().replace(/\s+/g,"");
+   const codeLike=/^(?:d|p)?\d{3,4}[a-z]?$/.test(cq);
+   if(codeLike){
+     const exact=rows.filter(r=>r.code.toLowerCase()===cq || r.code.toLowerCase().replace(/[a-z]$/,"")===cq);
+     rows=exact.length?exact:rows.filter(r=>smart(q,r.code+" "+r.title+" "+r.text));
+   } else rows=rows.filter(r=>smart(q,r.code+" "+r.title+" "+r.text));
+ }
  $("#dkrCount").textContent=rows.length.toLocaleString("de-DE")+" Richtlinien";
  $("#dkrTextPane").innerHTML=rows.map(r=>{
    const sn=dkrSnippet(r.text,q), original=DKR_ORIGINALS[r.year];
