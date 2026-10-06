@@ -249,7 +249,7 @@ function globalSearchRun(q){
  }));
  // AOP
  Object.keys(AOP||{}).forEach(y=>(AOP[y]||[]).forEach(r=>{
-   if(nc(r.code).includes(nc(q))||smart(q,[r.text,r.ebm,r.ebmText,r.note].join(" "))) add("AOP "+y,r.code+" · "+r.text,"AOP-Katalog","aop",()=>{($("#aopYearRight")?.value||$("#workYear").value)=y;$("#aopSearch").value=q;renderAop()});
+   if(nc(r.code).includes(nc(q))||smart(q,[r.text,r.ebm,r.ebmText,r.note].join(" "))) add("AOP "+y,r.code+" · "+r.text,"AOP-Katalog","aop",()=>{if($("#aopYearRight"))$("#aopYearRight").value=y;$("#aopSearch").value=q;renderAop()});
  }));
  // Zusatzentgelte
  Object.keys(ZE||{}).forEach(y=>(ZE[y]||[]).forEach(g=>{
