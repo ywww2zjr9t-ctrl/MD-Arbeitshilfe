@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Katalogsystematik</title>
+<style>
+:root{--bg:#f4f7fa;--paper:#fff;--text:#172033;--muted:#64748b;--line:#d7e0e8;--blue:#1769aa;--hit:#fff5bf;--note:#f4f6f8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+header{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line);padding:10px 18px}
+.head{max-width:1180px;margin:auto;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.head strong{font-size:18px}.crumb{color:var(--muted);font-size:13px}.spacer{flex:1}.find{min-width:260px;border:1px solid var(--line);border-radius:8px;padding:8px 10px}
+main{max-width:1180px;margin:auto;background:var(--paper);min-height:100vh;padding:18px 22px 80px}
+.intro{color:var(--muted);margin:0 0 14px}
+.row{display:grid;grid-template-columns:145px minmax(0,1fr);gap:10px;border-top:1px solid #edf1f4;padding:7px 8px;scroll-margin-top:76px}
+.row:hover{background:#f8fafc}.row.target{background:var(--hit);border-left:4px solid #d6a700;padding-left:4px}
+.code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-weight:700;color:#075f9b;white-space:nowrap}
+.title{font-weight:600}.rubrics{margin-top:5px}.rub{padding:2px 0}.rk{display:inline-block;min-width:76px;color:var(--muted);font-size:12px;font-weight:700}
+.kind-chapter,.kind-block{background:#eef4f8}.kind-chapter .title,.kind-block .title{font-weight:800}
+.empty{padding:28px;border:1px solid var(--line);border-radius:10px;background:#fff}
+@media(max-width:650px){.row{grid-template-columns:100px 1fr}main{padding:12px}.find{min-width:180px;flex:1}}
+</style>
+</head>
+<body>
+<header><div class="head"><strong id="name">Systematik</strong><span class="crumb" id="year"></span><span class="spacer"></span><input class="find" id="find" placeholder="Im Katalog suchen …"></div></header>
+<main><p class="intro">Fortlaufende Katalogansicht. Der aufgerufene Code ist hervorgehoben; nach oben und unten kann frei durch den Jahrgang gescrollt werden.</p><div id="catalog">Katalog wird geladen …</div></main>
+<script>
+const P=new URLSearchParams(location.search), TYPE=P.get("type")||"icd", YEAR=P.get("year")||"2026", TARGET=P.get("code")||"";
+document.getElementById("name").textContent=(TYPE==="ops"?"OPS":"ICD-10-GM")+" "+YEAR;
+document.getElementById("year").textContent="Systematik";
+const dataVar=TYPE==="ops"?"OPS_SYS":"ICD_DATA";
+const file=TYPE==="ops"?`data/ops_sys_${YEAR}.js`:`data/icd_${YEAR}.js`;
+function esc(x){return String(x??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function rows(){return (window[dataVar]||{})[YEAR]||[]}
+function render(q=""){
+ const n=x=>String(x||"").toLowerCase(), words=q.toLowerCase().trim().split(/\s+/).filter(Boolean);
+ let a=rows(); if(words.length)a=a.filter(r=>words.every(w=>n(r.code+" "+r.title+" "+(r.rubrics||[]).flat().join(" ")).includes(w)));
+ document.getElementById("catalog").innerHTML=a.map(r=>{
+   const hit=n(r.code)===n(TARGET), k=n(r.kind);
+   const rs=(r.rubrics||[]).filter(x=>x[1]&&x[1]!==r.title).map(x=>`<div class="rub"><span class="rk">${esc(x[0])}</span>${esc(x[1])}</div>`).join("");
+   return `<div class="row ${hit?"target":""} ${k.includes("chapter")?"kind-chapter":k.includes("block")?"kind-block":""}" id="c-${encodeURIComponent(r.code)}"><div class="code">${esc(r.code)}</div><div><div class="title">${esc(r.title||"")}</div>${rs?`<div class="rubrics">${rs}</div>`:""}</div></div>`
+ }).join("")||'<div class="empty">Kein Eintrag gefunden.</div>';
+ if(!q){setTimeout(()=>document.querySelector(".target")?.scrollIntoView({block:"center"}),40)}
+}
+const sc=document.createElement("script");sc.src=file;sc.onload=()=>render();sc.onerror=()=>document.getElementById("catalog").innerHTML='<div class="empty">Für diesen Jahrgang ist noch keine Systematikdatei hinterlegt.</div>';document.head.appendChild(sc);
+document.getElementById("find").addEventListener("input",e=>render(e.target.value));
+</script></body></html>
