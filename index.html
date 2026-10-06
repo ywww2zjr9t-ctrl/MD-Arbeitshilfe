@@ -23,7 +23,7 @@ main{padding:28px 32px 46px;min-width:0}.view{display:none;max-width:1450px;marg
 .empty{background:white;border:1px solid var(--line);border-radius:14px;padding:35px;text-align:center;color:var(--muted)}
 @media(max-width:900px){.dkr-split{grid-template-columns:1fr!important}.app{grid-template-columns:1fr}aside{position:static;height:auto}main{padding:20px 13px}.hero{align-items:flex-start;flex-direction:column}.thead{display:none}.trow,.cardhead,.detailrow,.sch-card,.ctxrow{grid-template-columns:1fr}.dkrgrid{grid-template-columns:1fr}.money{text-align:left}}
 .coderef{color:#14528e;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:2px;cursor:pointer;font-family:inherit}.coderef:hover{color:#0b6fce}
-</style></head>
+.searchwrap{position:relative}.searchwrap .search{padding-left:38px!important;padding-right:40px!important}.searchwrap>span{position:absolute;left:13px;top:50%;transform:translateY(-50%);z-index:2}.search-clear{display:none;position:absolute;right:8px;top:50%;transform:translateY(-50%);width:27px;height:27px;border:0;border-radius:50%;background:transparent;color:#68788b;font-size:20px;cursor:pointer}.search-clear:hover{background:#edf2f7}.searchwrap.has-text .search-clear{display:block}.navbtn span[title="Im Aufbau"]{font-size:12px;margin-left:auto}.coderef{color:#14528e;text-decoration:underline;cursor:pointer}</style></head>
 <body><div class="app">
 <aside>
  <div class="brand" id="homeBrand" role="button" tabindex="0" title="Zur Hauptseite" style="cursor:pointer"><h1>Arbeitshilfe Begutachtung MD</h1><p>KodierWerk · zentrale medizinische Arbeitshilfe</p></div>
@@ -34,16 +34,16 @@ main{padding:28px 32px 46px;min-width:0}.view{display:none;max-width:1450px;marg
 
  <div class="info" style="padding:10px;margin:0 0 10px"><strong>Arbeitsjahr</strong><br><select id="workYear" style="width:100%;margin-top:6px;padding:8px;border:1px solid var(--line);border-radius:8px"><option>2027</option><option selected>2026</option><option>2025</option><option>2024</option></select><select id="searchScope" style="width:100%;margin-top:6px;padding:8px;border:1px solid var(--line);border-radius:8px"><option value="year" selected>Suche im Arbeitsjahr</option><option value="all">Suche in allen Jahren</option></select></div>
 <div id="navSortable">
-  <div class="navgroup" data-group="icd"><button class="navbtn" data-view="icd"><span class="navicon">I</span>ICD</button></div>
+  <div class="navgroup" data-group="icd"><button class="navbtn" data-view="icd"><span class="navicon">I</span>ICD</button><div class="sub"><select id="icdYearSide"><option>2026</option><option>2025</option><option>2024</option><option>2023</option><option>2022</option></select></div></div>
   <div class="navgroup" data-group="ops"><button class="navbtn" data-view="ops"><span class="navicon">O</span>OPS</button></div>
   <div class="navgroup" data-group="ze"><button class="navbtn" data-view="ze"><span class="navicon">€</span>Zusatzentgelte</button><div class="sub"><select id="zeYear"><option>2026</option><option>2025</option><option>2024</option></select></div></div>
   <div class="navgroup open" data-group="aop"><button class="navbtn active" data-view="aop"><span class="navicon">◫</span>AOP</button><div class="sub"><select id="aopYear"><option>2026</option><option>2025</option><option>2024</option></select><button class="active" data-aopmode="proc">Prozeduren</button><button data-aopmode="ctx">Kontextfaktoren</button></div></div>
   <div class="navgroup" data-group="dkr"><button class="navbtn" data-view="dkr"><span class="navicon">D</span>DKR</button><div class="sub"><select id="dkrYear"><option>2026</option><option>2025</option><option>2024</option><option>2023</option><option>2022</option></select></div></div>
-  <div class="navgroup" data-group="kde"><button class="navbtn" data-view="kde"><span class="navicon">K</span>Kodierempfehlungen</button></div>
-  <div class="navgroup" data-group="fzf"><button class="navbtn" data-view="fzf"><span class="navicon">F</span>Fallzusammenführung</button><div class="sub"><select id="fzfYear"><option>2026</option><option>2025</option><option>2024</option></select></div></div>
+  <div class="navgroup" data-group="kde"><button class="navbtn" data-view="kde"><span class="navicon">K</span>Kodierempfehlungen <span title="Im Aufbau">🚧</span></button></div>
+  <div class="navgroup" data-group="fzf"><button class="navbtn" data-view="fzf"><span class="navicon">F</span>Fallzusammenführung <span title="Im Aufbau">🚧</span></button><div class="sub"><select id="fzfYear"><option>2026</option><option>2025</option><option>2024</option></select></div></div>
   <div class="navgroup" data-group="sch"><button class="navbtn" data-view="sch"><span class="navicon">§</span>Schlichtersprüche</button></div>
   <div class="navgroup" data-group="opscompare"><button class="navbtn" data-view="opscompare"><span class="navicon">⇄</span>OPS-Jahresvergleich</button></div>
-  <div class="navgroup" data-group="text"><button class="navbtn" data-view="text"><span class="navicon">T</span>Textbausteine</button></div>
+  <div class="navgroup" data-group="text"><button class="navbtn" data-view="text"><span class="navicon">T</span>Textbausteine <span title="Im Aufbau">🚧</span></button></div>
  </div>
  <div style="border-top:1px solid var(--line);padding-top:8px"><button class="navbtn" data-view="fav"><span class="navicon">★</span>Favoriten</button><button class="navbtn" data-view="history"><span class="navicon">↶</span>Verlauf</button></div>
  <div class="sidefoot">Standard: ICD → OPS → ZE → AOP → DKR → Kodierempfehlungen → Fallzusammenführung → Schlichtersprüche. In der nativen Mac-App ist die Reihenfolge per Drag & Drop änderbar.</div>
@@ -53,14 +53,14 @@ main{padding:28px 32px 46px;min-width:0}.view{display:none;max-width:1450px;marg
   <strong>Datenschutz</strong><br>
   Diese Arbeitshilfe verarbeitet keine Patienten-, Sozial-, Mitarbeiter- oder sonstigen personenbezogenen Daten und keine internen Unternehmensinformationen. Sie basiert ausschließlich auf öffentlich zugänglichen Gesetzen, Regelwerken und Fachinformationen.
  </div>
- <div class="version" style="margin-top:9px">Arbeitshilfe v003 · © AG 2026</div>
+ <div class="version" style="margin-top:9px">Arbeitshilfe v004 · © AG 2026</div>
 </div>
-</aside>
+<div style="margin-top:auto;padding-top:14px"><button class="navbtn" data-view="settings"><span class="navicon">⚙</span>Einstellungen</button><div class="info" style="font-size:11px;line-height:1.35;margin-top:10px;padding:10px"><strong>Datenschutz &amp; Technik</strong><br>Online über GitHub Pages bereitgestellt. Suche und Verarbeitung erfolgen im Browser. Es werden keine Patienten-, Sozial-, Mitarbeiter- oder internen Unternehmensdaten verarbeitet. Persönliche Layout-Einstellungen werden ausschließlich lokal im Browser gespeichert. Inhalte basieren auf öffentlich zugänglichen Regelwerken und Fachinformationen.</div><div class="version" style="margin-top:9px">Arbeitshilfe v004 · © AG 2026</div></div></aside>
 <main>
  
  
  <div id="globalResults" style="display:none"></div>
-<section id="view-settings" class="view">
+<section id="view-settings" class="view"><div class="hero"><div><h2>Einstellungen</h2><div class="subtitle">Persönliche Darstellung · lokal in diesem Browser gespeichert</div></div></div><div class="card" style="padding:18px"><h3>Reihenfolge der Bereiche</h3><p class="small">Die Reihenfolge wird nur lokal in diesem Browser gespeichert und verändert die gemeinsame Website nicht.</p><div id="navOrderSettings"></div><button id="navOrderReset" class="filter">Standard wiederherstellen</button></div></section><section id="view-settings" class="view">
  <div class="hero"><div><h2>Einstellungen</h2><div class="subtitle">Persönliche Einstellungen dieser Arbeitshilfe</div></div></div>
  <div class="card" style="padding:18px"><h3 style="margin-top:0">Seitenleiste</h3><p class="muted">Die individuelle Reihenfolge der Bereiche wird in einer späteren Ausbaustufe hier einstellbar. Sie wird nur lokal im jeweiligen Browser gespeichert.</p></div>
 </section>
@@ -110,11 +110,7 @@ main{padding:28px 32px 46px;min-width:0}.view{display:none;max-width:1450px;marg
   <div class="info"><strong>Quelle:</strong> Deutsche Kodierrichtlinien der Selbstverwaltungspartner. Die Jahrgänge 2022–2026 sind vollständig textdurchsuchbar aufbereitet. „Original öffnen“ ruft die unveränderte DOCX-Datei des jeweiligen Jahrgangs in einem neuen Tab/Fenster auf.</div>
   <div id="dkrTextPane"></div>
  </section>
- <section id="view-icd" class="view">
-  <div class="hero"><div><h2>ICD-10-GM</h2><div class="subtitle">Eigener Offline-Katalog · jahresbezogen</div></div><div class="pill">BfArM</div></div>
-  <div class="searchcard"><div class="searchwrap"><span>⌕</span><input id="icdSearch" class="search" placeholder="Lokale Bereichssuche – ICD oder Stichwort …"></div><div class="help">Codes ab 2 Zeichen · Punkt nicht erforderlich · Begriffe ab 4 Zeichen</div></div>
-  <div class="info"><strong>Getrennter ICD-Bereich.</strong> Die vollständige lokale BfArM-Fassung wird aus der Mac-App bzw. aus einem lokalen Export eingelesen. Referenzen aus anderen Modulen springen direkt hierher.</div>
- </section>
+ <section id="view-icd" class="view"><div class="hero"><div><h2 id="icdTitle">ICD-10-GM 2026</h2><div class="subtitle">Amtliche Systematik · Jahrgänge 2022–2026</div></div><div class="pill">BfArM</div></div><div class="searchcard"><div class="searchwrap"><span>⌕</span><input id="icdSearch" class="search" placeholder="ICD-Code oder Stichwörter suchen …"></div><div class="help">Mehrere Stichwörter werden kombiniert. Klick auf einen Code öffnet die Systematik in einem neuen Tab.</div></div><div class="toolbar"><select id="icdYear"><option>2026</option><option>2025</option><option>2024</option><option>2023</option><option>2022</option></select><div id="icdCount" class="counter"></div></div><div id="icdRows"></div></section>
  <section id="view-ops" class="view">
   <div class="hero"><div><h2 id="opsTitle">OPS 2026</h2><div class="subtitle">OPS-Katalog · 2026 amtliche Metadaten · 2027 Vorabfassung</div></div><div class="pill" id="opsPill">2026</div></div>
   <div class="searchcard"><div class="searchwrap"><span>⌕</span><input id="opsSearch" class="search" placeholder="OPS-Code oder Stichwort suchen …"></div><div class="help">Bindestrich und Punkt sind bei Codes nicht erforderlich.</div></div>
@@ -144,12 +140,18 @@ const esc=s=>String(s??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replac
 const nc=s=>String(s||"").toLowerCase().replace(/[^0-9a-zäöüß]/g,"");
 function nt(s){return String(s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/ß/g,"ss").replace(/[^0-9a-zäöü\s-]/g," ").replace(/\s+/g," ").trim()}
 function dl(a,b){a=nt(a);b=nt(b);let n=a.length,m=b.length,d=Array.from({length:n+1},()=>Array(m+1).fill(0));for(let i=0;i<=n;i++)d[i][0]=i;for(let j=0;j<=m;j++)d[0][j]=j;for(let i=1;i<=n;i++)for(let j=1;j<=m;j++){let c=a[i-1]===b[j-1]?0:1;d[i][j]=Math.min(d[i-1][j]+1,d[i][j-1]+1,d[i-1][j-1]+c);if(i>1&&j>1&&a[i-1]===b[j-2]&&a[i-2]===b[j-1])d[i][j]=Math.min(d[i][j],d[i-2][j-2]+c)}return d[n][m]}
-function smart(q,t){q=nt(q);t=nt(t);if(!q)return true;if(t.includes(q))return true;return q.split(" ").every(x=>{if(t.includes(x))return true;if(x.length<4)return false;let md=x.length<=6?1:x.length<=10?2:3;return t.split(/[\s-]+/).some(w=>Math.abs(w.length-x.length)<=md&&dl(x,w)<=md)})}
+function smart(q,t){q=nt(q);t=nt(t);if(!q)return true;const ws=t.split(/[^a-z0-9äöüß]+/).filter(Boolean);return q.split(/\s+/).filter(Boolean).every(x=>{if(t.includes(x))return true;if(ws.some(w=>w.startsWith(x)||(x.startsWith(w)&&w.length>=4)))return true;if(x.length<4)return false;let md=x.length<=6?1:x.length<=10?2:3;return ws.some(w=>Math.abs(w.length-x.length)<=md&&dl(x,w)<=md)})}
 function linkCodes(value){return esc(value)}
 let aopMode="proc", zeFilter="all";
 function switchView(v){$$(".view").forEach(x=>x.classList.toggle("active",x.id==="view-"+v));$$(".navbtn").forEach(x=>x.classList.toggle("active",x.dataset.view===v));$$(".navgroup").forEach(g=>g.classList.toggle("open",g.dataset.group===v));}
 $$(".navbtn").forEach(b=>b.onclick=()=>switchView(b.dataset.view));
 $$("[data-aopmode]").forEach(b=>b.onclick=()=>{aopMode=b.dataset.aopmode;$$("[data-aopmode]").forEach(x=>x.classList.toggle("active",x===b));$("#aopProc").style.display=aopMode==="proc"?"":"none";$("#aopCtx").style.display=aopMode==="ctx"?"":"none";$("#aopSub").textContent=aopMode==="proc"?"Prozeduren nach § 115b SGB V":"Kontextfaktoren · Anlage 2";renderAop()});
+function normCode(x){return nt(x).replace(/[^a-z0-9]/g,"")}
+function renderIcd(){const y=$("#icdYear").value,q=$("#icdSearch").value.trim();$("#icdTitle").textContent="ICD-10-GM "+y;let rows=(window.ICD_DATA?.[y]||[]).filter(r=>{if(!q)return true;const cq=normCode(q),rc=normCode(r.code);if(cq.length>=2&&rc.includes(cq))return true;return smart(q,r.title+" "+r.rubrics.map(x=>x[1]).join(" "))});const total=rows.length;rows=rows.slice(0,500);$("#icdCount").textContent=total.toLocaleString("de-DE")+" Treffer";$("#icdRows").innerHTML=rows.map(r=>`<div class="card" style="padding:14px;margin-bottom:10px"><a class="coderef code" target="_blank" rel="noopener" href="icd_systematik.html?year=${encodeURIComponent(y)}&code=${encodeURIComponent(r.code)}">${esc(r.code)}</a> <strong>${esc(r.title)}</strong>${r.rubrics.length?`<div class="small" style="margin-top:6px">${esc(r.rubrics.slice(0,3).map(x=>x[1]).join(" · "))}</div>`:""}</div>`).join("")||'<div class="empty">Kein Treffer</div>'}
+$("#icdSearch").oninput=renderIcd;$("#icdYear").onchange=()=>{$("#icdYearSide").value=$("#icdYear").value;renderIcd()};$("#icdYearSide").onchange=()=>{$("#icdYear").value=$("#icdYearSide").value;renderIcd()};renderIcd();
+function wireSearchClear(){document.querySelectorAll(".searchwrap").forEach(w=>{const i=w.querySelector("input.search");if(!i)return;let b=w.querySelector(".search-clear");if(!b){b=document.createElement("button");b.type="button";b.className="search-clear";b.textContent="×";b.setAttribute("aria-label","Suche löschen");w.appendChild(b)}const sync=()=>w.classList.toggle("has-text",!!i.value);i.addEventListener("input",sync);b.onclick=()=>{i.value="";i.dispatchEvent(new Event("input",{bubbles:true}));i.focus()};sync()})}setTimeout(wireSearchClear,0);
+$("#homeBrand").onclick=()=>document.querySelector('.navbtn[data-view="aop"]')?.click();
+const orderKey="md-nav-order-v1";function navGroups(){return [...document.querySelectorAll("aside .navgroup")]}function applyOrder(){let o=[];try{o=JSON.parse(localStorage.getItem(orderKey)||"[]")}catch{};const parent=navGroups()[0]?.parentElement;if(!parent)return;o.forEach(g=>{const x=document.querySelector(`.navgroup[data-group="${g}"]`);if(x)parent.insertBefore(x,parent.querySelector('[style*="margin-top:auto"]'))});renderOrder()}function renderOrder(){const box=$("#navOrderSettings");if(!box)return;const gs=navGroups();box.innerHTML=gs.map((g,i)=>`<div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--line)"><span style="flex:1">${esc(g.querySelector(".navbtn")?.innerText||g.dataset.group)}</span><button class="filter" data-move="-1" data-g="${g.dataset.group}" ${i===0?"disabled":""}>↑</button><button class="filter" data-move="1" data-g="${g.dataset.group}" ${i===gs.length-1?"disabled":""}>↓</button></div>`).join("");box.querySelectorAll("[data-move]").forEach(b=>b.onclick=()=>{const a=navGroups(),i=a.findIndex(x=>x.dataset.group===b.dataset.g),j=i+Number(b.dataset.move);if(j<0||j>=a.length)return;const p=a[i].parentElement;if(j>i)p.insertBefore(a[j],a[i]);else p.insertBefore(a[i],a[j]);localStorage.setItem(orderKey,JSON.stringify(navGroups().map(x=>x.dataset.group)));renderOrder()})}$("#navOrderReset").onclick=()=>{localStorage.removeItem(orderKey);location.reload()};setTimeout(applyOrder,0);
 function renderAop(){let y=$("#aopYear").value,q=$("#aopSearch").value;$("#aopTitle").textContent="AOP-Katalog "+y;$("#aopPill").textContent=y;if(aopMode==="proc"){let rows=(AOP[y]||[]).filter(i=>!q||nc(i.code).includes(nc(q))||smart(q,[i.text,i.ebm,i.ebmText,i.note].join(" ")));$("#aopCount").textContent=rows.length.toLocaleString("de-DE")+" Treffer";$("#aopRows").innerHTML=rows.map(i=>`<div class="trow"><div class="code">${linkCodes(i.code)} ${i.bilateralRule?'<span class="badge">↔</span>':""}</div><div>${esc(i.text)}</div><div>${i.fracture?'<span class="badge">Frakturzuschlag</span>':""}${i.note?'<span class="badge">Hinweis</span>':""}${i.section===2?'<span class="badge">EBM-Info</span>':""}</div></div>`).join("")}else{let groups=(CTX[y]||[]),total=0,out=[];for(const g of groups){let rr=(g.rows||[]).filter(r=>!q||nc(r.code).includes(nc(q))||smart(q,r.text)||smart(q,g.title));if(q&&!rr.length)continue;total+=rr.length;out.push(`<div class="card contextgroup open"><h3>${esc(g.title)} · ${rr.length}</h3><div class="cardbody">${rr.map(r=>`<div class="ctxrow"><div class="code">${esc(r.code)}</div><div>${esc(r.text)}</div></div>`).join("")}</div></div>`)}$("#ctxCount").textContent=total.toLocaleString("de-DE")+" Einträge";$("#ctxGroups").innerHTML=out.join("")}}
 $("#aopYear").onchange=renderAop;$("#aopSearch").oninput=renderAop;
 function euro(v){return Number(v).toLocaleString("de-DE",{minimumFractionDigits:2,maximumFractionDigits:2})+" €"}
@@ -312,4 +314,9 @@ $("#fzfImport").addEventListener("change",async e=>{
 });
 
 renderAop();renderZe();const schYears=[...new Set(SCH_FULL.map(d=>schEff(d).slice(0,4)).filter(Boolean))].sort((a,b)=>b-a);$("#schYear").innerHTML='<option value="">Alle Jahre</option>'+schYears.map(y=>`<option>${y}</option>`).join('');renderSch();renderDkr();renderFzf();
-</script></body></html>
+</script></body></html<script src="data/icd_2022.js"></script>
+<script src="data/icd_2023.js"></script>
+<script src="data/icd_2024.js"></script>
+<script src="data/icd_2025.js"></script>
+<script src="data/icd_2026.js"></script>
+>
