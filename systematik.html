@@ -31,13 +31,15 @@ document.getElementById("year").textContent="Systematik";
 const dataVar=TYPE==="ops"?"OPS_SYS":"ICD_DATA";
 const file=TYPE==="ops"?`data/ops_sys_${YEAR}.js`:`data/icd_${YEAR}.js`;
 function esc(x){return String(x??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+const RUBRIC_LABELS={inclusion:"Inkl.",exclusion:"Exkl.",note:"Hinw.","coding-hint":"Kodierhinweis",codinghint:"Kodierhinweis",preferred:""};
+function rubricLabel(x){const k=String(x||"").toLowerCase().replace(/_/g,"-");return RUBRIC_LABELS[k]??x}
 function rows(){return (window[dataVar]||{})[YEAR]||[]}
 function render(q=""){
  const n=x=>String(x||"").toLowerCase(), words=q.toLowerCase().trim().split(/\s+/).filter(Boolean);
  let a=rows(); if(words.length)a=a.filter(r=>words.every(w=>n(r.code+" "+r.title+" "+(r.rubrics||[]).flat().join(" ")).includes(w)));
  document.getElementById("catalog").innerHTML=a.map(r=>{
    const hit=n(r.code)===n(TARGET), k=n(r.kind);
-   const rs=(r.rubrics||[]).filter(x=>x[1]&&x[1]!==r.title).map(x=>`<div class="rub"><span class="rk">${esc(x[0])}</span>${esc(x[1])}</div>`).join("");
+   const rs=(r.rubrics||[]).filter(x=>x[1]&&x[1]!==r.title).map(x=>`<div class="rub"><span class="rk">${esc(rubricLabel(x[0]))}</span>${esc(x[1])}</div>`).join("");
    return `<div class="row ${hit?"target":""} ${k.includes("chapter")?"kind-chapter":k.includes("block")?"kind-block":""}" id="c-${encodeURIComponent(r.code)}"><div class="code">${esc(r.code)}</div><div><div class="title">${esc(r.title||"")}</div>${rs?`<div class="rubrics">${rs}</div>`:""}</div></div>`
  }).join("")||'<div class="empty">Kein Eintrag gefunden.</div>';
  if(!q){setTimeout(()=>document.querySelector(".target")?.scrollIntoView({block:"center"}),40)}
